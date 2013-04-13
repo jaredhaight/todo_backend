@@ -1,0 +1,11 @@
+<section id="body">
+    <div class="row">
+        <div class="large-12 columns">
+            <ul>
+            {% for todo in todos %}
+                <li>{{ todo.name }}</li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+</section>
