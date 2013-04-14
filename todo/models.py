@@ -1,5 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.forms import ModelForm, Textarea
+
 
 # Create your models here.
 class Todo(models.Model):
@@ -9,6 +11,7 @@ class Todo(models.Model):
     updated = models.DateTimeField(null=True, auto_now=True)
     completed = models.DateTimeField(null=True, blank=True)
     attachment = models.FileField(upload_to='upload', null=True, blank=True)
+    owner = models.ForeignKey(User, related_name='todos')
 
     def __unicode__(self):
         return self.name
