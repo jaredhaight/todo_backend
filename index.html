@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    {% block title %}<title>Foundation 4</title>{% endblock %}
+    <title>Foundation 4</title>
     <link rel="stylesheet" href="/static/css/foundation.min.css">
     <link rel="stylesheet" href="/static/css/normalize.css" />
     <link rel="stylesheet" href="/static/css/app.css" />
@@ -13,15 +13,21 @@
     <script src="/static/js/vendor/custom.modernizr.js"></script>
 
 </head>
-<body>
-{% block content %}{% endblock %}
-
+<body ng-app="todojs">
+<div ng-view></div>
 <script>
     document.write('<script src=' +
-            ('__proto__' in {} ? '/js/vendor/zepto' : '/js/vendor/jquery') +
+            ('__proto__' in {} ? '/static/js/vendor/zepto' : '/static/js/vendor/jquery') +
             '.js><\/script>')
 </script>
 <script src="/static/js/foundation/foundation.js"></script>
+<script src="/todojs/lib/angular/angular.js"></script>
+<script src="todojs/lib/angular/angular-resource.js"></script>
+<script src="/todojs/app.js"></script>
+<script src="/todojs/services.js"></script>
+<script src="/todojs/controllers.js"></script>
+<script src="/todojs/filters.js"></script>
+<script src="/todojs/directives.js"></script>
 <script>
     $(document).foundation();
 </script>
