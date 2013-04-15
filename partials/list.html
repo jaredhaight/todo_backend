@@ -1,8 +1,25 @@
-<div ng-repeat="todo in todoListData.results">
-  <h3>{{ todo.name }}</h3>
-  {{ todo.desc }}<br>
-  {{ todo.created }}<br>
-  {{ todo.updated }}<br>
-  {{ todo.owner }}<br>
+<div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todoListData.results">
+
+  <table>
+      <tr>
+          <td>Name</td>
+          <td><strong>{{ todo.name }}</strong></td>
+      </tr>
+      <tr>
+          <td>Description</td>
+          <td>{{ todo.desc }}</td>
+      </tr>
+      <tr>
+          <td>Created</td>
+          <td>{{ todo.created | date:"medium" }}</td>
+      </tr>
+      <tr>
+          <td>Updated</td>
+          <td>{{ todo.updated | date:"medium"}}</td>
+      </tr>
+      <tr>
+          <td>Owner</td>
+          <td>{{ todo.owner }}</td>
+      </tr>
+  </table>
 </div>
-todoList: {{ todoList }}
