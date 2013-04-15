@@ -1,10 +1,15 @@
-<section id="body">
+<section id="body" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="large-12 columns">
-            <ul>
             {% for todo in todos %}
-                <li>{{ todo.name }}</li>
-            </ul>
+            <div style="margin-bottom: 10px">
+                Name: {{ todo.name }}</br>
+                 {% if todo.desc %}
+                 Description: {{ todo.desc }}</br>
+                 {% endif %}
+                Created: {{ todo.created }}</br>
+                Updated: {{ todo.updated }}</br>
+            </div>
             {% endfor %}
         </div>
     </div>

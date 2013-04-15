@@ -8,10 +8,9 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'todo_site.views.home', name='home'),
     url(r'^todo/', include('todo.urls')),
-
+    url(r'^api/', include('todo.api.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )
