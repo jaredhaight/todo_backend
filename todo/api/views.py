@@ -7,6 +7,7 @@ from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.renderers import JSONPRenderer, JSONRenderer
 
 @api_view(('GET',))
 def api_root(request, format=None):
@@ -18,6 +19,7 @@ def api_root(request, format=None):
 class ListTodos(generics.ListCreateAPIView):
     model = Todo
     serializer_class = TodoSerializer
+    renderer_classes = (JSONRenderer, JSONPRenderer)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
     def pre_save(self, obj):
@@ -25,6 +27,7 @@ class ListTodos(generics.ListCreateAPIView):
 
 class TodoDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Todo
+    renderer_classes = (JSONRenderer, JSONPRenderer)
     serializer_class = TodoSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
