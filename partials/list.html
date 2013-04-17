@@ -1,25 +1,44 @@
-<div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todoListData.results">
+<div class="row">
+    <div class="large-6 columns">
+      <div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todoListData.results|orderBy:'created':reverseAge">
 
-  <table>
-      <tr>
-          <td>Name</td>
-          <td><strong>{{ todo.name }}</strong></td>
-      </tr>
-      <tr>
-          <td>Description</td>
-          <td>{{ todo.desc }}</td>
-      </tr>
-      <tr>
-          <td>Created</td>
-          <td>{{ todo.created | date:"medium" }}</td>
-      </tr>
-      <tr>
-          <td>Updated</td>
-          <td>{{ todo.updated | date:"medium"}}</td>
-      </tr>
-      <tr>
-          <td>Owner</td>
-          <td>{{ todo.owner }}</td>
-      </tr>
-  </table>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><strong>{{ todo.name }}</strong></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{ todo.desc }}</td>
+            </tr>
+            <tr>
+                <td>Created</td>
+                <td>{{ todo.created | date:"medium" }}</td>
+            </tr>
+            <tr>
+                <td>Updated</td>
+                <td>{{ todo.updated | date:"medium"}}</td>
+            </tr>
+            <tr>
+                <td>Owner</td>
+                <td>{{ todo.owner }}</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+    <div class="large-6 columns">
+        <div>
+          Order by:
+          <select ng-model="reverseAge">
+              <option value="false">Oldest</option>
+              <option value="true">Newest</option>
+          </select>
+        </div>
+        <div>
+          <h3>Add an item</h3>
+          Name: <input type="text" ng-model="todoName"></input><br>
+          Desc: <input type="text" ng-model="todoDesc"></input><br>
+          <button ng-click="addTodo()">Submit</button>
+        </div>
+    </div>
 </div>
