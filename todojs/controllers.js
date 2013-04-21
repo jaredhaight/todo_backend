@@ -30,7 +30,7 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
 
     $scope.todoCompleted = function(todo, index){
         console.log("todoCompleted");
-        var todoobj = todoListClient.get({todoID: todo.id});
+        var todoobj = new todoListClient;
         console.log(todoobj);
         var now = new Date();
         todoobj.name = todo.name;
