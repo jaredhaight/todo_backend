@@ -15,11 +15,7 @@
 </head>
 <body ng-app="todojs">
 <div ng-view></div>
-<script>
-    document.write('<script src=' +
-            ('__proto__' in {} ? '/static/js/vendor/zepto' : '/static/js/vendor/jquery') +
-            '.js><\/script>')
-</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="/static/js/foundation/foundation.js"></script>
 <script src="/todojs/lib/angular/angular.js"></script>
 <script src="todojs/lib/angular/angular-resource.js"></script>
@@ -28,6 +24,7 @@
 <script src="/todojs/controllers.js"></script>
 <script src="/todojs/filters.js"></script>
 <script src="/todojs/directives.js"></script>
+<script src="/todojs/js/jquery.sticky.js"></script>
 <script>
     $(document).foundation();
 </script>
