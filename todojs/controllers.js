@@ -8,14 +8,18 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
     $scope.editing = 'false';
     var todoList = todoListClient.get();
     $scope.todos = todoList;
+    console.log($scope.todos);
+
     $scope.addTodo = function(){
         var newTodo = new todoListClient;
         newTodo.name = $scope.todoName;
         newTodo.desc = $scope.todoDesc;
         newTodo.$save(function(){
             $scope.todos.results.push(newTodo);
+            $scope.undoEdit();
         });
     };
+
     $scope.deleteTodo = function (todo, index) {
         console.log('deleteTodo');
         console.log(index);
@@ -35,10 +39,10 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         console.log(index);
         todoobj.$update({todoID: todo.id}, function(){
             var index = $scope.todos.results.indexOf(todo);
-            $scope.todos.results[index].completed = now;
-            $scope.todos.results[index].updated = now;
+            $scope.todos.results[index].completed = now.toJSON();
+            $scope.todos.results[index].updated = now.toJSON();
             console.log('Todo saved as completed');
-        })
+        });
     };
 
     $scope.enableEdit = function(todo) {
