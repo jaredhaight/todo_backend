@@ -5,10 +5,11 @@ from todo.models import Todo
 
 class TodoSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.Field(source='owner.username')
+    id = serializers.Field()
 
     class Meta:
         model = Todo
-        fields = ('url', 'name', 'desc', 'created', 'updated', 'completed','owner')
+        fields = ('url', 'id', 'name', 'desc', 'created', 'updated', 'completed','owner')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     todos = serializers.HyperlinkedRelatedField(view_name='todo-detail', many=True)
