@@ -7,7 +7,6 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
     $scope.reverseAge = 'true';
     var todoList = todoListClient.get();
     $scope.todos = todoList;
-    $scope.json = 'Nothing here.';
     $scope.addTodo = function(){
         console.log('addTodo')
         $scope.todos.name = $scope.todoName;
@@ -27,4 +26,18 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         console.log("getTodo");
         $scope.json = todoListClient.get({todoID: todo.id})
         };
+    $scope.todoCompleted = function(todo, index){
+        console.log("todoCompleted");
+        var todoobj = todoListClient.get({todoID: todo.id});
+        console.log(todoobj);
+        var now = new Date();
+        todoobj.name = todo.name;
+        todoobj.completed = now.toJSON();
+        console.log(todoobj.completed);
+        console.log(index);
+        todoobj.$update({todoID: todo.id}, function(){
+            $scope.todos.results[index].completed = now;
+            console.log('Todo saved as completed');
+        })
+    }
 }

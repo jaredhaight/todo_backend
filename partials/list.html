@@ -20,12 +20,16 @@
                 <td>{{ todo.updated | date:"medium"}}</td>
             </tr>
             <tr>
+                <td>Completed</td>
+                <td>{{ todo.completed | date:"medium"}}</td>
+            </tr>
+            <tr>
                 <td>Owner</td>
                 <td>{{ todo.owner }}</td>
             </tr>
             <tr>
                 <td><a ng-click="deleteTodo(todo, $index)">Delete</a></td>
-                <td><a ng-click="getTodo(todo)">Get</a></td>
+                <td><a ng-click="todoCompleted(todo, $index)">Done</a></td>
             </tr>
         </table>
       </div>
