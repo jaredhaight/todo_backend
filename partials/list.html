@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td><a ng-click="deleteTodo(todo, $index)">Delete</a></td>
-                <td><a ng-click="todoCompleted(todo, $index)">Done</a></td>
+                <td><a ng-click="todoCompleted(todo, $index)">Done</a> <a ng-click="enableEdit(todo)">Edit</a></td>
             </tr>
         </table>
       </div>
@@ -46,28 +46,41 @@
             </select>
           </div>
         </div>
-        <div class="row">
-          <h3>Add an item</h3>
-         <div class="small-2 columns">
-           <label for='nameInput' class="right inline">Name</label>
-         </div>
-         <div class="small-10 columns">
-            <input id="nameInput" type="text" ng-model="todoName"><br>
-         </div>
-          <div class="small-2 columns">
-             <label for='descInput' class="right inline">Desc</label>
-          </div>
-          <div class="small-10 columns">
-              <input id="descInput" type="text" ng-model="todoDesc"><br>
-          </div>
-          <div class="small-12 columns">
-          <button class="right" ng-click="addTodo()">Submit</button>
-          </div>
-        </div>
-        <div class="row">
-            <div class="small-12 columns">
-            {{ json }}
+        <div id="todoEntry">
+          <div class="row">
+              <h3>Add an item</h3>
+             <div class="small-2 columns">
+               <label for='nameInput' class="right inline">Name</label>
+             </div>
+             <div class="small-10 columns">
+                <input id="nameInput" type="text" ng-model="todoName"><br>
+             </div>
+           </div>
+           <div class="row">
+              <div class="small-2 columns">
+                 <label for='descInput' class="right inline">Desc</label>
+              </div>
+              <div class="small-10 columns">
+                  <input id="descInput" type="text" ng-model="todoDesc"><br>
+              </div>
             </div>
+            <div class="row">
+              <div class="small-12 columns">
+              <button ng-hide="editing" class="right" ng-click="addTodo()">Submit</button>
+              <button ng-show="editing" class="right" ng-click="editTodo(todoEditObj)">Edit</button>
+              <button ng-show="editing" class="right alert" ng-click="undoEdit()">Cancel</button>
+              </div>
+             </div>
+          <div class="row">
+              <div class="small-12 columns">
+              {{ json }}
+              </div>
+          </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $("#todoEntry").sticky({topSpacing:0, getWidthFrom:'#todoEntry'});
+    });
+</script>
