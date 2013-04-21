@@ -1,6 +1,17 @@
+<div id="menuHeader" class="row">
+    <div class="large-4 columns">
+        <h3>Todos to be done</h3>
+    </div>
+    <div class="large-4 columns">
+        <h3>Done todos</h3>
+    </div>
+    <div class="large-4 columns">
+        <h3>Add an item</h3>
+    </div>
+</div>
 <div class="row" ng-controller="todoListCtrl">
-    <div class="large-6 columns">
-      <div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todos.results|orderBy:'created':reverseAge">
+    <div class="large-4 columns">
+      <div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todos.results|orderBy:'created':reverseAge|filter:{completed:'!'}">
 
         <table>
             <tr>
@@ -34,21 +45,43 @@
         </table>
       </div>
     </div>
-    <div class="large-6 columns">
-        <div class="row">
-          <div class="small-3 columns">
-              <label for="ageList" class="right inline">Order by</label>
-          </div>
-          <div class="small-9 columns custom dropdown">
-            <select id="ageList" ng-model="reverseAge">
-                <option value="false">Oldest</option>
-                <option value="true">Newest</option>
-            </select>
-          </div>
+    <div class="large-4 columns">
+        <div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todos.results|orderBy:'created':reverseAge|filter:{completed:'!!'}">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><strong>{{ todo.name }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>{{ todo.desc }}</td>
+                </tr>
+                <tr>
+                    <td>Created</td>
+                    <td>{{ todo.created | date:"medium" }}</td>
+                </tr>
+                <tr>
+                    <td>Updated</td>
+                    <td>{{ todo.updated | date:"medium"}}</td>
+                </tr>
+                <tr>
+                    <td>Completed</td>
+                    <td>{{ todo.completed | date:"medium"}}</td>
+                </tr>
+                <tr>
+                    <td>Owner</td>
+                    <td>{{ todo.owner }}</td>
+                </tr>
+                <tr>
+                    <td><a ng-click="deleteTodo(todo, $index)">Delete</a></td>
+                    <td><a ng-click="todoCompleted(todo, $index)">Done</a> <a ng-click="enableEdit(todo)">Edit</a></td>
+                </tr>
+            </table>
         </div>
+    </div>
+    <div class="large-4 columns">
         <div id="todoEntry">
           <div class="row">
-              <h3>Add an item</h3>
              <div class="small-2 columns">
                <label for='nameInput' class="right inline">Name</label>
              </div>
@@ -66,11 +99,20 @@
             </div>
             <div class="row">
               <div class="small-12 columns">
-              <button ng-hide="editing" class="right" ng-click="addTodo()">Submit</button>
+              <button ng-hide="editing" class="right" ng-click="addTodo()" ng-disabled="!todoName">Submit</button>
               <button ng-show="editing" class="right" ng-click="editTodo(todoEditObj)">Edit</button>
-              <button ng-show="editing" class="right alert" ng-click="undoEdit()">Cancel</button>
+              <button ng-show="editing" class="right alert" ng-click="undoEdit()" ng-disabled="!todoName">Cancel</button>
               </div>
-             </div>
+           </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <label for="ageList" class="left inline">Order by</label>
+                    <select id="ageList" ng-model="reverseAge">
+                        <option value="false">Oldest</option>
+                        <option value="true">Newest</option>
+                    </select>
+                </div>
+            </div>
           <div class="row">
               <div class="small-12 columns">
               {{ json }}
@@ -81,6 +123,6 @@
 </div>
 <script>
     $(document).ready(function(){
-        $("#todoEntry").sticky({topSpacing:0, getWidthFrom:'#todoEntry'});
+        $("#todoEntry").sticky({topSpacing:20, getWidthFrom:'#todoEntry'});
     });
 </script>
