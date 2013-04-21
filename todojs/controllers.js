@@ -61,10 +61,10 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
     };
 
     $scope.editTodo = function(todo) {
-        var todoObj = todoListClient.get({todoID: todo.id});
-        todoObj.name = $scope.todoName;
-        todoObj.desc = $scope.todoDesc;
-        todoObj.$update({todoID: todo.id}, function(){
+        var updateTodo = new todoListClient;
+        updateTodo.name = $scope.todoName;
+        updateTodo.desc = $scope.todoDesc;
+        updateTodo.$update({todoID: todo.id}, function(){
             var index = $scope.todos.results.indexOf(todo);
             $scope.todos.results[index].name = $scope.todoName;
             $scope.todos.results[index].desc = $scope.todoDesc;
