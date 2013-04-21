@@ -9,8 +9,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'todo.api.views.api_root'),
-    url(r'^todo/$', views.ListTodos.as_view(), name="todo-list"),
-    url(r'^todo/(?P<pk>[0-9]+)/$', views.TodoDetail.as_view(), name="todo-detail"),
+    url(r'^todo$', views.ListTodos.as_view(), name="todo-list"),
+    url(r'^todo/(?P<pk>[0-9]+)$', views.TodoDetail.as_view(), name="todo-detail"),
     url(r'^users/$', views.ListUsers.as_view(), name="users-list"),
     url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view(), name="user-detail"),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" ng-controller="todoListCtrl">
     <div class="large-6 columns">
-      <div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todoListData.results|orderBy:'created':reverseAge">
+      <div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todos.results|orderBy:'created':reverseAge">
 
         <table>
             <tr>
@@ -23,22 +23,47 @@
                 <td>Owner</td>
                 <td>{{ todo.owner }}</td>
             </tr>
+            <tr>
+                <td><a ng-click="deleteTodo(todo, $index)">Delete</a></td>
+                <td><a ng-click="getTodo(todo)">Get</a></td>
+            </tr>
         </table>
       </div>
     </div>
     <div class="large-6 columns">
-        <div>
-          Order by:
-          <select ng-model="reverseAge">
-              <option value="false">Oldest</option>
-              <option value="true">Newest</option>
-          </select>
+        <div class="row">
+          <div class="small-3 columns">
+              <label for="ageList" class="right inline">Order by</label>
+          </div>
+          <div class="small-9 columns custom dropdown">
+            <select id="ageList" ng-model="reverseAge">
+                <option value="false">Oldest</option>
+                <option value="true">Newest</option>
+            </select>
+          </div>
         </div>
-        <div>
+        <div class="row">
           <h3>Add an item</h3>
-          Name: <input type="text" ng-model="todoName"></input><br>
-          Desc: <input type="text" ng-model="todoDesc"></input><br>
-          <button ng-click="addTodo()">Submit</button>
+         <div class="small-2 columns">
+           <label for='nameInput' class="right inline">Name</label>
+         </div>
+         <div class="small-10 columns">
+            <input id="nameInput" type="text" ng-model="todoName"><br>
+         </div>
+          <div class="small-2 columns">
+             <label for='descInput' class="right inline">Desc</label>
+          </div>
+          <div class="small-10 columns">
+              <input id="descInput" type="text" ng-model="todoDesc"><br>
+          </div>
+          <div class="small-12 columns">
+          <button class="right" ng-click="addTodo()">Submit</button>
+          </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+            {{ json }}
+            </div>
         </div>
     </div>
 </div>
