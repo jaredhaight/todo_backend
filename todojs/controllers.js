@@ -17,6 +17,9 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         newTodo.$save(function(){
             $scope.todos.results.push(newTodo);
             $scope.undoEdit();
+        }, function(data){
+            console.log(data);
+            $scope.alertPop('Could not add todo', data);
         });
     };
 
@@ -25,6 +28,8 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         console.log(index);
         $scope.todos.$delete({todoID: todo.id}, function() {
             $scope.todos.results.splice($scope.todos.results.indexOf(todo), 1);
+        }, function(){
+            $scope.alertPop('Could not delete todo', data);
         });
     };
 
@@ -42,6 +47,8 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
             $scope.todos.results[index].completed = now.toJSON();
             $scope.todos.results[index].updated = now.toJSON();
             console.log('Todo saved as completed');
+        }, function(){
+            $scope.alertPop('Could not complete todo', data);
         });
     };
 
@@ -72,6 +79,28 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
             $scope.todos.results[index].desc = $scope.todoDesc;
             $scope.todos.results[index].updated = new Date();
             $scope.undoEdit();
-        })
+        }, function(){
+            $scope.alertPop('Could not edit todo', data);
+        });
+    };
+
+    $scope.alertPop = function(message, data){
+        var error = 'An unknown error has occurred.';
+        if (data.status == 0|| data.status == 404){
+           var error = 'The API endpoint for this request was not found.';
+        }
+        else if (data.status == 400){
+            var error = 'There was a problem with the data sent to server.'
+        }
+        else if (data.status == 500){
+            var error = 'There was a server or data error.';
+        }
+        $scope.alertMessage = message+': '+error;
+        $scope.alert = true;
+    };
+
+    $scope.alertClear = function(){
+        $scope.alertMessage = null;
+        $scope.alert = false;
     }
 }
