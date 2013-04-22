@@ -6,9 +6,9 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
     $http.defaults.headers.common['Authorization'] = 'Token 09c34730916dee2ccaa71b6c35d2eba689e554b4';
     $scope.reverseAge = 'true';
     $scope.editing = 'false';
+    $scope.mode = 'Add';
     var todoList = todoListClient.get();
     $scope.todos = todoList;
-    console.log($scope.todos);
 
     $scope.addTodo = function(){
         var newTodo = new todoListClient;
@@ -49,6 +49,7 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         $scope.todoName = todo.name;
         $scope.todoDesc = todo.desc;
         $scope.editing = 'true';
+        $scope.mode = 'Edit';
         $scope.todoEditObj = todo;
         console.log($scope.editing);
     };
@@ -58,6 +59,7 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         $scope.todoDesc = '';
         $scope.todoEditObj = null;
         $scope.editing = 'false';
+        $scope.mode = 'Add';
     };
 
     $scope.editTodo = function(todo) {
