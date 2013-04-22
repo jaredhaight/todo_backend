@@ -99,7 +99,7 @@
             </div>
             <div class="row">
                 <div class="small-12 columns">
-                    <button ng-hide="editing" class="right" ng-click="addTodo()">Submit</button>
+                    <button ng-hide="editing" class="right" ng-click="addTodo()" ng-disabled="!todoName">Submit</button>
                     <button ng-show="editing" class="right" ng-click="editTodo(todoEditObj)">Edit</button>
                     <button ng-show="editing" class="right alert" ng-click="undoEdit()" ng-disabled="!todoName">Cancel</button>
                 </div>
