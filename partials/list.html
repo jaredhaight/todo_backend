@@ -9,7 +9,7 @@
 <div id="menuHeader" class="row">
     <div class="large-4 columns">
         <h3>Todos to be done</h3>
-        <div style="margin-top: 5px; margin-bottom: 5px;" ng-repeat="todo in todos.results|orderBy:'created':reverseAge|filter:{completed:'!'}">
+        <div class="todoBox" ng-repeat="todo in todos.results|orderBy:'created':reverseAge|filter:{completed:'!'}">
 
             <table>
                 <tr>

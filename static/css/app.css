@@ -6,6 +6,11 @@
     background: #ffffff;
 }
 
+.todoBox {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 #alertWrap {
     margin-top: 10px;
 }
