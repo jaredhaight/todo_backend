@@ -28,7 +28,7 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         console.log(index);
         $scope.todos.$delete({todoID: todo.id}, function() {
             $scope.todos.results.splice($scope.todos.results.indexOf(todo), 1);
-        }, function(){
+        }, function(data){
             $scope.alertPop('Could not delete todo', data);
         });
     };
@@ -47,7 +47,7 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
             $scope.todos.results[index].completed = now.toJSON();
             $scope.todos.results[index].updated = now.toJSON();
             console.log('Todo saved as completed');
-        }, function(){
+        }, function(data){
             $scope.alertPop('Could not complete todo', data);
         });
     };
@@ -79,7 +79,7 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
             $scope.todos.results[index].desc = $scope.todoDesc;
             $scope.todos.results[index].updated = new Date();
             $scope.undoEdit();
-        }, function(){
+        }, function(data){
             $scope.alertPop('Could not edit todo', data);
         });
     };
