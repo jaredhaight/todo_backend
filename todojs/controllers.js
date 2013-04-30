@@ -1,8 +1,41 @@
 'use strict';
 
 /* Controllers */
-function userListCtrl($scope, userListClient, todoListClient, $routeParams, $http) {
-    $http.defaults.headers.common['Authorization'] = 'Token 09c34730916dee2ccaa71b6c35d2eba689e554b4';
+function loginCtrl($scope, $cookieStore, $routeParams, $http, $location) {
+    $scope.login = function() {
+        var username = $scope.juser;
+        var password = $scope.jpass;
+        $http({
+            method: 'POST',
+            url: 'http://127.0.0.1:8000/api/get-token/',
+            data: {'username':username, 'password': password}
+         }).success(function(data){
+                var token = data.token;
+                console.log(token);
+                $cookieStore.put('token',token);
+                $cookieStore.put('username', username);
+                $location.path('/user/'+username);
+            }).error(function(data){
+                var error = data;
+                console.log(error);
+                $scope.alert = true;
+                $scope.alertMessage = 'Invalid Credentials';
+            });
+    };
+    $scope.alertClear = function(){
+      $scope.alert = false;
+    };
+
+}
+function logoutCtrl($scope, $cookieStore, $location) {
+    $cookieStore.remove('token');
+    $cookieStore.remove('username');
+    $location.path('/login');
+}
+
+function userListCtrl($scope, userListClient, todoListClient, $routeParams, $http, $cookieStore) {
+    var token = $cookieStore.get('token');
+    $http.defaults.headers.common['Authorization'] = 'Token '+token;
     $scope.reverseAge = 'true';
     $scope.editing = 'false';
     $scope.mode = 'Add';
@@ -25,8 +58,9 @@ function userListCtrl($scope, userListClient, todoListClient, $routeParams, $htt
     $scope.deleteTodo = function (todo, index) {
         console.log('deleteTodo');
         console.log(index);
-        $scope.user.todos.$delete({todoID: todo.id}, function() {
-            $scope.user.todos.splice($scope.todos.results.indexOf(todo), 1);
+        var todoobj = new todoListClient;
+        todoobj.$delete({todoID: todo.id}, function() {
+            $scope.user.todos.splice($scope.user.todos.indexOf(todo), 1);
         }, function(data){
             $scope.alertPop('Could not delete todo', data);
         });
@@ -88,6 +122,9 @@ function userListCtrl($scope, userListClient, todoListClient, $routeParams, $htt
         if (data.status == 0|| data.status == 404){
            var error = 'The API endpoint for this request was not found.';
         }
+        else if (data.status == 403){
+            var error = 'You are not authorized to do that.'
+        }
         else if (data.status == 400){
             var error = 'There was a problem with the data sent to server.'
         }
@@ -104,8 +141,9 @@ function userListCtrl($scope, userListClient, todoListClient, $routeParams, $htt
     }
 }
 
-function todoListCtrl($scope, todoListClient, $routeParams, $http) {
-    $http.defaults.headers.common['Authorization'] = 'Token 09c34730916dee2ccaa71b6c35d2eba689e554b4';
+function todoListCtrl($scope, todoListClient, $routeParams, $http, $cookieStore) {
+    var token = $cookieStore.get('token');
+    $http.defaults.headers.common['Authorization'] = 'Token '+token;
     $scope.reverseAge = 'true';
     $scope.editing = 'false';
     $scope.mode = 'Add';
@@ -189,6 +227,9 @@ function todoListCtrl($scope, todoListClient, $routeParams, $http) {
         var error = 'An unknown error has occurred.';
         if (data.status == 0|| data.status == 404){
            var error = 'The API endpoint for this request was not found.';
+        }
+        else if (data.status == 403){
+            var error = 'You are not authorized to do that.'
         }
         else if (data.status == 400){
             var error = 'There was a problem with the data sent to server.'
