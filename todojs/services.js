@@ -7,4 +7,7 @@ angular.module('todoListSvc', ['ngResource']).
         return $resource('http://127.0.0.1:port/api/todo/:todoID/', {port:':8000', todoID:'@id'}, {
             update: {method:'PUT'}
             });
-        });
+        }).
+    factory('userListClient', function($resource, $routeParams){
+        return $resource('http://127.0.0.1:port/api/users/:username/', {port: ':8000'},{});
+    });
