@@ -12,7 +12,7 @@ class TodoSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'name', 'desc', 'created', 'updated', 'completed','owner')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    todos = serializers.HyperlinkedRelatedField(view_name='todo-detail', many=True)
+    todos = TodoSerializer(many=True, required=False)
 
     class Meta:
         model = User
